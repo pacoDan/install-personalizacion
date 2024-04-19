@@ -6,7 +6,8 @@ sudo fc-cache -f -v
 
 # Copiar los iconos a la carpeta de iconos del sistema, reemplazando los existentes
 sudo cp -rf candy-icons /usr/share/icons
-
+sudo cp -rf Os-Catalina-icons /usr/share/icons
+sudo cp -rf Os-Catalina-Night /usr/share/icons
 # Actualizar la cache de iconos del sistema
 sudo gtk-update-icon-cache -f /usr/share/icons/candy-icons
 
