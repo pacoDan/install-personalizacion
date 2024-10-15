@@ -13,3 +13,12 @@ sudo gtk-update-icon-cache -f /usr/share/icons/candy-icons
 
 # tema Dracula en Tilix
 sudo cp -rf tilix-master/Dracula.json ~/.config/tilix/schemes
+
+# install dracula
+cp -rf ./theme-gtk-dracula ~/.themes/
+sudo cp -rf ./theme-gtk-dracula /usr/share/themes/
+echo "-> installed GTK"
+mkdir -p ~/.config/tilix/schemes && cp -f ./tilix/Dracula.json ~/.config/tilix/schemes/ && echo "Installer Tilix"
+echo "-> installed Tilix"
+echo "----------------------->"
+echo "Done!"
