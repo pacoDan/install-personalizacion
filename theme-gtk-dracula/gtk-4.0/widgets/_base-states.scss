@@ -67,10 +67,11 @@
   }
 }
 
-.view,
 textview {
-  text {
+  > text {
     @extend %view;
+
+    background-color: transparent;
 
     selection { &:focus, & { @extend %selected_items; }}
   }
@@ -97,6 +98,16 @@ flowbox {
       @extend %selected_items;
 
       outline-offset: -2px;
+    }
+  }
+}
+
+// Nautilus grid view
+gridview {
+  > child {
+    padding: 7px;
+    box { //cells
+      border-spacing: 5px; //label separation
     }
   }
 }

@@ -17,16 +17,19 @@ stage {
 /* WIDGETS */
 
 /* Buttons */
-.button, %button {
+.button, .icon-button, %button {
   @include button(normal);
-  border-radius: 5px;
-  padding: 4px 32px;
   &:focus { @include button(focus); }
   &:insensitive { @include button(insensitive); }
-  &:active { @include button(active); }
+  &:active, &:checked { @include button(active); }
   &:hover {
     @include button(hover);
   }
+}
+
+.button {
+  border-radius: 5px;
+  padding: 4px 32px;
 }
 
 .modal-dialog-linked-button {
@@ -146,10 +149,15 @@ $slider_size: 16px;
 .toggle-switch {
   width: 65px;
   height: 22px;
+  background-color: transparent !important;
   background-size: contain;
   //Gnome 3.32//
   background-image: url("assets/toggle-off.svg");
   &:checked { background-image: url("assets/toggle-on.svg"); }
+  .handle {
+    background: none !important;
+    box-shadow: none !important;
+  }
 }
 
   @each $v in us, intl {
@@ -177,11 +185,20 @@ $slider_size: 16px;
   color: $osd_fg_color;
   background-color: darken($osd_bg_color,5%);
   box-shadow: $depth6;
+  padding: 0 !important;
 
-  .modal-dialog-content-box { 
-    margin: 32px 40px;
+  .modal-dialog-content-box {
+    margin: 10px 30px;
     spacing: 32px;
     max-width: 28em;
+  }
+
+  .modal-dialog-button-box {
+    padding: 0 10px 10px 10px;
+    .modal-dialog-button {
+      @extend %button;
+      border-radius: 10px;
+    }
   }
 
   .run-dialog-entry {
@@ -240,7 +257,8 @@ $slider_size: 16px;
 /* End Session Dialog */
 .end-session-dialog {
   border: none;
-  & .modal-dialog-linked-button:last-child {
+  & .modal-dialog-linked-button:last-child,
+  & .modal-dialog-button:last-child {
     background-color: $red;
     color: #fff;
     &:hover, &:focus {
@@ -642,21 +660,16 @@ $slider_size: 16px;
 .osd-window {
   text-align: center;
   font-weight: bold;
-  spacing: 1em;
-  margin: 32px;
-  min-width: 64px;
-  min-height: 64px;
 
   .osd-monitor-label { font-size: 3em; }
   .level {
     height: 0.4em;
     border-radius: 0.3em;
     color: $osd_fg_color;
-    border: 1px solid $borders_color;
 
     -barlevel-height: 0.4em;
     -barlevel-background-color: $gray;
-    -barlevel-active-background-color: $selected_bg_color;
+    -barlevel-active-background-color: opacify($selected_bg_color, 1);
     -barlevel-overdrive-color: $red;
     -barlevel-overdrive-separator-width: 0.2em; 
   }
@@ -696,6 +709,7 @@ $slider_size: 16px;
   .switcher-list .item-box {
     padding: 8px;
     border-radius: 4px;
+    background-color: transparent;
   }
 
   .switcher-list .item-box:outlined {
@@ -783,7 +797,7 @@ $slider_size: 16px;
   background-color: $_bubble_bg_color;
   border: 1px solid $borders_color;
   box-shadow: 0px 0px 7px $borders_color;
-  border-radius: 5px;
+  border-radius: 18px;
   padding: 12px;
 }
 
@@ -999,6 +1013,7 @@ $slider_size: 16px;
     }
 
     .calendar-month-label {
+      background-color: transparent;
       color: darken($fg_color,5%);
       font-weight: bold;
       padding: 8px 0;
@@ -1037,6 +1052,7 @@ $slider_size: 16px;
       border-radius: 99px;
       color: $fg_color;
       background-gradient-direction: none;
+      background-color: transparent;
       
       &:hover,&:focus { 
         background-color: lighten($bg_color, 7%); 
@@ -1048,11 +1064,12 @@ $slider_size: 16px;
         border-color: transparent; //avoid jumparound due to today
         box-shadow: none !important;
       }
-      &.calendar-day-heading {  //day of week heading
-        color: $fg_color;
-        margin-top: 1em;
-        font-size: 70%;
-      }
+    }
+    .calendar-day-heading {  //day of week heading
+      background-color: transparent;
+      color: $fg_color;
+      margin-top: 1em;
+      font-size: 70%;
     }
       .calendar-day { //border collapse hack - see calendar.js
         border-width: 0;
@@ -1328,7 +1345,7 @@ $slider_size: 16px;
 
 //close buttons
 
-.window-close {
+.window-close, %window-close-button {
   background-color: $main_dark;
   color: lighten($fg_color, 4%);
   border-radius: 30px * 0.5 + 3px * 2;
@@ -1449,6 +1466,7 @@ $slider_size: 16px;
   //search results
 
   %search-section-content-item {  
+    background-color: transparent;
     &:focus,
     &:hover,
     &:selected {
@@ -1558,8 +1576,10 @@ $slider_size: 16px;
   .app-well-app,
   .app-well-app.app-folder,
   .show-apps,
-  .grid-search-result {
-    
+  .grid-search-result,
+  .overview-tile,
+  .dash-item-container .overview-tile {
+    background-color: transparent;
     border: none;
     & .overview-icon {
       @extend %icon_tile;
@@ -1583,16 +1603,16 @@ $slider_size: 16px;
 
   }
 
-  .app-well-app-running-dot { //running apps indicator
+  .app-well-app-running-dot, .app-grid-running-dot { //running apps indicator
     width: 10px; height: 3px;
     background-color: $purple;
     border-radius: 5px !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 0px;
   }
 
   %icon_tile {
+    background-color: transparent;
     color: $selected_fg_color;
-    padding: 6px;
     border: none;
     transition-duration: 100ms;
     text-align: center;
@@ -1601,8 +1621,8 @@ $slider_size: 16px;
   }
 
 /* App Folders */
-.app-well-app.app-folder {
-  background-color: lighten($bg_color, 7%);
+.app-well-app.app-folder, .app-folder .overview-icon {
+  background-color: lighten($bg_color, 5%);
   border-radius: 18px;
 }
 // expanded folder
@@ -1715,7 +1735,7 @@ $slider_size: 16px;
   }
 
   .page-navigation-arrow {
-
+    background-color: transparent;
     margin: 6px;
     padding: 18px;
     width: 24px;
@@ -1778,6 +1798,11 @@ $slider_size: 16px;
       &:hover, &focus { background-color: $selected_bg_color; color: $selected_fg_color;}
     }
   }
+
+  .notification-buttons-bin .notification-button {
+    border-radius: 10px !important;
+  }
+
   .summary-source-counter {
     font-size: 10pt;
     font-weight: bold;
@@ -2248,7 +2273,7 @@ $slider_size: 16px;
   
     &:checked { 
       @include button(active, transparentize($selected_bg_color, 0.35));
-      &:hover { @include button(active, transparentize(lighten($selected_bg_color, 10%), 0.35)); }
+      &:hover { @include button(active, transparentize($selected_bg_color, 0.3)); }
 
       &, &:hover { color: $purple; }
     }
@@ -2268,7 +2293,7 @@ $slider_size: 16px;
     //.quick-toggle-icon, .quick-toggle-arrow { icon-size: $base_icon_size; }
   }
   
-  .quick-menu-toggle {
+  .quick-menu-toggle, .quick-toggle-has-menu {
     &:ltr > StBoxLayout { padding-right: 0; }
     &:rtl > StBoxLayout { padding-left: 0; }
 
@@ -2284,14 +2309,14 @@ $slider_size: 16px;
     }
   
   
-    & .quick-toggle-arrow {
-      background-color: lighten($base_color, 1%);
+    & .quick-toggle-arrow, & .quick-toggle-menu-button {
+      background-color: transparentize(lighten($base_color, 4%), 0.5);
       padding: $base_padding $base_padding*1.75;
       border-width: 0;
       color: $fg_color;
       &:checked { 
         @include button(active, transparentize($selected_bg_color, 0.25));
-        &:hover { @include button(active, transparentize(lighten($selected_bg_color, 10%), 0.25)); }
+        &:hover { @include button(active, transparentize($selected_bg_color, 0.15)); }
         &, &:hover {
           color: $purple;
           border-width: 0;
@@ -2304,6 +2329,10 @@ $slider_size: 16px;
       &:ltr { border-radius: 0 99px 99px 0; }
       &:rtl { border-radius: 99px 0 0 99px; }
     }
+
+    & .quick-toggle-menu-button { background-color: lighten($base_color, 5%); }
+
+    & .quick-toggle-separator { width: 0; }
   }
   
   .quick-toggle-menu {
@@ -2346,3 +2375,41 @@ $slider_size: 16px;
 
 .quick-slider .icon-button:hover { @include button(hover); }
   
+
+// Screenshot UI
+
+.screenshot-ui-panel {
+  @extend %osd-panel;
+}
+
+.screenshot-ui-close-button {
+  @extend %window-close-button;
+}
+
+.screenshot-ui-type-button, .screenshot-ui-show-pointer-button {
+  @extend %button;
+  text-shadow: none;
+}
+
+.screenshot-ui-window-selector {
+  background-color: $bg_color;
+}
+
+.screenshot-ui-window-selector-window {
+  &:hover {
+    .screenshot-ui-window-selector-window-border {
+      border-color: darken($selected_bg_color, 15%);
+    }
+  }
+  &:checked {
+    .screenshot-ui-window-selector-window-border {
+      border-color: $selected_bg_color;
+      background-color: transparentize($selected_bg_color, 0.8);
+    }
+
+    .screenshot-ui-window-selector-check {
+      color: $bg_color;
+      background-color: $selected_bg_color;
+    }
+  }
+}

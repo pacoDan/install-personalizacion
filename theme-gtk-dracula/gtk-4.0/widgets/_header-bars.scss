@@ -336,7 +336,4 @@ headerbar {
   }
 }
 
-.nautilus-window .sidebar-pane .top-bar headerbar {
-  padding-top: 3px;
-  padding-bottom: 3px;
-}
+.raised.top-bar{ background-color: $headerbar_color; }

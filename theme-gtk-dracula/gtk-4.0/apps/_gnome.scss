@@ -98,9 +98,8 @@
     }
   }
 
-  .path-buttons-box, #NautilusPathBar {
+  .path-buttons-box {
     background: transparent;
-    height: 20px;
     margin-top: 7px;
     margin-bottom: 7px;
 
@@ -257,4 +256,27 @@
     box-shadow: none;
     &:hover { border-color: $selected_bg_color; }
   } 
+}
+
+/*******************
+ * Calendar events *
+********************/
+.color-light {
+  &.timed label, .event-popover label {
+    color: $fg_color;
+    opacity: 1;
+  }
+  & label {
+    color: $bg_color;
+    opacity: 1;
+  }
+}
+
+/******************************
+ * Gnome system monitor graph *
+******************************/
+
+#gnome-system-monitor .loadgraph  {
+  background: $bg_color;
+  color: $text_color;
 }

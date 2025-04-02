@@ -34,7 +34,7 @@
     color: $panel_fg_color;
     border-radius: 0;
     border: none;
-    background-color: $panel_bg_color;
+    background-color: transparent;
     font-weight: normal;
 
     &:hover {
@@ -43,8 +43,8 @@
     }
     &:active, &:checked {
       color: $panel_fg_color;
-      border-bottom: 2px solid $purple;
-      background-color: darken($panel_bg_color, 2%);
+      box-shadow: 0px -2px $purple inset;
+      background-color: transparentize($selected_bg_color, 0.4);
 
       label, image { color: inherit; }
     }
@@ -56,4 +56,24 @@
 .-vala-panel-appmenu-private > menuitem,
 .-vala-panel-appmenu-private > menuitem:first-child > label {
     color: $panel_fg_color;
+}
+
+// Notifications
+
+#XfceNotifyWindow {
+  background-color: darken($bg_color, 2%);
+  border-radius: 12px;
+  border-width: 1px;
+  border: 1px solid $borders_color;
+  color: $fg_color;
+  padding: 40px;
+  &:hover, &:focus { background-color: $bg_color; }
+  label, image { color: $fg_color; }
+  button { 
+    @include button(normal); 
+    &:hover {
+      @include button(hover, $selected_bg_color);
+      label { color: $selected_fg_color; }
+    }
+  }
 }
